@@ -1,0 +1,45 @@
+<div class="container-fluid mt-2 mb-2">
+    <div class="d-flex justify-content-between">
+        <h2>
+            Bodega
+        </h2>
+        <button class="btn btn-primary">
+            Agregar un producto
+        </button>
+    </div>
+</div>
+<div class="container-fluid flex-fill">
+    <table class="table  table-hover p-0">
+        <thead>
+            <tr class="table-dark">
+                <td>Nombre</td>
+                <td>Cantidad</td>
+                <td>Precio</td>
+                <td>Precio de Compra</td>
+                <td>Fecha de creación</td>
+                <td>Proveedor</td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of products; track $index) {
+            <tr class="table-primary">
+                <td>{{item.name}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.precioDeCompra}}</td>
+                <td>{{item.fechaDeCreacion}}</td>
+                <td>{{item.proveedor}}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<nav aria-label="store-pagination">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link"><<</a></li>
+      <li class="page-item"><a class="page-link">1</a></li>
+      <li class="page-item"><a class="page-link">2</a></li>
+      <li class="page-item"><a class="page-link">3</a></li>
+      <li class="page-item"><a class="page-link">>></a></li>
+    </ul>
+</nav>
