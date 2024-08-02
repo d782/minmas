@@ -9,5 +9,5 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-
+  
 }

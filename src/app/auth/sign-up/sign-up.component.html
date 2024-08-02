@@ -2,37 +2,39 @@
     <div class="login__panel">
         <h1 class="login__header">Crear una Cuenta</h1>
         <p class="text-center">Ya posees una cuenta?<a routerLink="/" class="link_login">Iniciar sesión</a></p>
-        <div class="login__form">
+        <form class="login__form" #form="ngForm" (ngSubmit)="saveUser()">
             <div class="mb-3">
                 <label class="form-label" for="name">Nombre</label>
-                <input type="text" placeholder="Nombre" class="form-control" />
+                <input type="text" placeholder="Nombre" class="form-control" name="user_name" required
+                [(ngModel)]="newUser.user_name"/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="lastname">Apellidos</label>
-                <input type="text" placeholder="Apellido" class="form-control" />
+                <input type="text" placeholder="Apellido" class="form-control" name="surename" [(ngModel)]="newUser.surename" required/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="birth_date">Fecha de nacimiento</label>
-                <input type="date" placeholder="DD/MM/YYYY" class="form-control" />
+                <input type="date" placeholder="DD/MM/YYYY" class="form-control"  name="birth_date" [(ngModel)]="newUser.birth_date" required/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="document">Cedula</label>
-                <input type="text" placeholder="Documento" class="form-control" />
+                <input type="text" placeholder="Documento" class="form-control"  name="document" [(ngModel)]="newUser.document" required/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="Email">Email</label>
-                <input type="text" placeholder="Email" class="form-control" />
+                <input type="text" placeholder="Email" class="form-control"  name="email" [(ngModel)]="newUser.email" required/>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="password">Contraseña</label>
-                <input type="password" placeholder="Contraseña" class="form-control" />
+                <input type="password" placeholder="Contraseña" class="form-control"  name="pwd" [(ngModel)]="newUser.pwd" required/>
             </div>
             <div class="mb-3">
                 Al continuar usted acepta los <a>Terms of use</a> y <a>Privacy policy</a>
             </div>
-            <button class="mb-3 btn btn-secondary" type="button" routerLink="/home">
+            <button class="mb-3 btn" [class]="!form.valid?'btn-disabled':'btn-secondary'" type="submit" [disabled]="!form.valid">
                 Crear Cuenta
             </button>
-        </div>
+            
+        </form>
     </div>
 </div>

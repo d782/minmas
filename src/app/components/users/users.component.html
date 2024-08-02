@@ -3,7 +3,7 @@
         <h2>
             Usuarios
         </h2>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" (click)="open()">
             Agregar Usuario
         </button>
     </div>
@@ -14,21 +14,28 @@
             <tr class="table-dark">
                 <td>Nombre</td>
                 <td>Apellido</td>
-                <td>Email</td>
-                <td>Telefono</td>
                 <td>Documento</td>
-                <td>Dirección</td>
+                <td>Email</td>
+                <td>Fecha de Nacimiento</td>
+                <td>Opciones</td>
             </tr>
         </thead>
         <tbody>
             @for (user of users; track $index) {
                 <tr class="table-primary">
-                    <td>{{user.name}}</td>
-                    <td>{{user.lastname}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.phone}}</td>
+                    <td>{{user.user_name}}</td>
+                    <td>{{user.surename}}</td>
                     <td>{{user.document}}</td>
-                    <td>{{user.address}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.birth_date}}</td>
+                    <td>
+                        <button  (click)="editUser(user)" class="btn btn-primary" style="margin-right: 10px;">
+                            <img src="/assets/pencil.svg#pencil" style="height:25px;width:25px"/>
+                        </button>
+                        <button  (click)="deleteUser(user.user_id)" class="btn btn-danger">
+                            <img style="height:25px;width:25px" src="/assets/trash.svg#trash"/>
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -6,13 +6,14 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ProfileComponent } from './components/profile/profile.component';
 import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
+import { authGuardGuard } from './guards/auth-guard.guard';
 
 export const routes: Routes = [
     {path:"",component:LoginComponent},
     {path:"sign-up",component:SignUpComponent},
-    {path:"home",component:HomeComponent},
-    {path:"profile",component:ProfileComponent},
-    {path:"users",component:UsersComponent},
-    {path:"store",component:StoreComponent},
+    {path:"home",component:HomeComponent,canActivate:[authGuardGuard]},
+    {path:"profile",component:ProfileComponent,canActivate:[authGuardGuard]},
+    {path:"users",component:UsersComponent,canActivate:[authGuardGuard]},
+    {path:"store",component:StoreComponent,canActivate:[authGuardGuard]},
     {path:"**",component:PageNotFoundComponent},
 ];
