@@ -17,6 +17,17 @@ import { switchMap } from 'rxjs';
 })
 export class UsersComponent implements OnInit{
     users:Users[]=[];
+    querySelect={
+      select: {
+        user_id: true,
+        email: true,
+        enabled: true,
+        user_name: true,
+        surename: true,
+        document: true,
+        birth_date: true
+      }
+    }
     constructor(
       private authSvc:AuthService,
       private modalSvc:ModalsService,
@@ -34,19 +45,20 @@ export class UsersComponent implements OnInit{
     }
 
     LoadUsers(){
-      this.authSvc.GetUser({}).subscribe(_users=>{
+      this.authSvc.GetUser({...this.querySelect}).subscribe(_users=>{
         this.users=_users
       })
     }
 
     open(){
+      this.modalSvc.edit$.next(null);
       this.modalSvc.Open(this.viewContainer,UserModal);
     }
 
     deleteUser(id:number|null){
       if(typeof id!=="number"){ return }
       this.authSvc.RemoveUser({user_id:id}).pipe(switchMap(_result=>{
-        return this.authSvc.GetUser({})
+        return this.authSvc.GetUser({...this.querySelect})
       })).subscribe(_users=>{
         this.users=_users;
       })
@@ -54,6 +66,6 @@ export class UsersComponent implements OnInit{
 
     editUser(user:Users){
       this.modalSvc.edit$.next(user);
-      this.open();
+      this.modalSvc.Open(this.viewContainer,UserModal);
     }
 }

@@ -1,7 +1,7 @@
 <div class="container">
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand" routerLink="/home">{{userName?userName:'MinMas V1.0'}}</a>
+          <a class="navbar-brand" routerLink="/home">MinMas V1.0</a>
           @if (!DisabledButton) {
             <div class="d-flex">
                 <a class="navbar-brand" (click)="CloseSession()" style="cursor: pointer;">Cerrar Sesión</a>
@@ -31,9 +31,8 @@
                   <ul class="dropdown-menu dropdown-menu-dark">
                     <li><a class="dropdown-item" routerLink="/users">Usuarios</a></li>
                     <li><a class="dropdown-item" routerLink="/store">Bodega</a></li>
-                    <li><a class="dropdown-item" routerLink="/**">Compras</a></li>
-                    <li><a class="dropdown-item" routerLink="/**">Facturas de venta</a></li>
-                    <li><a class="dropdown-item" routerLink="/**">Clientes</a></li>                       
+                    <li><a class="dropdown-item" routerLink="/invoices">Facturas de venta</a></li>
+                    <li><a class="dropdown-item" routerLink="/customers">Clientes</a></li>                       
                   </ul>
                 </li>
               </ul>

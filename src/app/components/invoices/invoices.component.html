@@ -1,10 +1,10 @@
 <div class="container-fluid mt-2 mb-2">
     <div class="d-flex justify-content-between">
         <h2>
-            Bodega
+            Facturas de venta
         </h2>
         <button class="btn btn-primary" (click)="Open()">
-            Agregar un producto
+            Crear nueva Factura
         </button>
     </div>
 </div>
@@ -12,27 +12,25 @@
     <table class="table  table-hover p-0">
         <thead>
             <tr class="table-dark">
-                <td>Nombre</td>
-                <td>Cantidad</td>
-                <td>Precio</td>
-                <td>Precio de Compra</td>
+                <td>Número de factura</td>
+                <td>Cliente</td>
+                <td>Total</td>
                 <td>Fecha de creación</td>
                 <td>Opciones</td>
             </tr>
         </thead>
         <tbody>
-            @for (item of products; track $index) {
+            @for (item of invoices; track $index) {
             <tr class="table-primary">
-                <td>{{item.product_name}}</td>
-                <td>{{item.quantity}}</td>
-                <td>{{item.price}}</td>
-                <td>{{item.buy_cost}}</td>
+                <td>{{item.factura_id}}</td>
+                <td>{{item.customer_id.full_name}}</td>
+                <td>{{item.total}}</td>
                 <td>{{item.created_at}}</td>
                 <td>
-                    <button  (click)="editProduct(item)" class="btn btn-primary" style="margin-right: 10px;">
+                    <button  (click)="editInvoice(item)" class="btn btn-primary" style="margin-right: 10px;">
                         <img src="/assets/pencil.svg#pencil" style="height:25px;width:25px"/>
                     </button>
-                    <button  (click)="deleteProduct(item.product_id)" class="btn btn-danger">
+                    <button  (click)="deleteInvoice(item.factura_id)" class="btn btn-danger">
                         <img style="height:25px;width:25px" src="/assets/trash.svg#trash"/>
                     </button>
                 </td>

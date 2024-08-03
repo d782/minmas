@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header d-flex justify-content-between">
-          <h5 class="modal-title">{{!product.product_id?'Crear Producto':product.product_name}}</h5>
+          <h5 class="modal-title">{{user.customer_id?user.full_name:'Crear Usuario'}}</h5>
           <button type="button" class="close" data-dismiss="modal" style="border: none;background-color: transparent;" (click)="close()">
             <svg style="height: 20px;width:25px;fill:#000000">
               <use href="/assets/close.svg#close"/>
@@ -12,21 +12,21 @@
         <div class="modal-body">
           <form class="login__form" #form="ngForm">
             <div class="mb-3">
-                <label class="form-label" for="name">Nombre del producto</label>
-                <input type="text" placeholder="Nombre del producto" class="form-control" name="product_name" required
-                [(ngModel)]="product.product_name"/>
+                <label class="form-label" for="full_name">Nombre</label>
+                <input type="text" placeholder="Nombre" class="form-control" name="full_name" required
+                [(ngModel)]="user.full_name"/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="quantity">Cantidad</label>
-                <input type="number" placeholder="Cantidad" class="form-control" name="quantity" [(ngModel)]="product.quantity" required/>
+                <label class="form-label" for="phone">Telefono</label>
+                <input type="text" placeholder="Telefono" class="form-control" name="phone" [(ngModel)]="user.phone" required/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="price">Precio $</label>
-                <input type="number" placeholder="0 $" class="form-control"  name="price" [(ngModel)]="product.price" required/>
+                <label class="form-label" for="email">Email</label>
+                <input type="email" placeholder="doe@doe.com" class="form-control"  name="email" [(ngModel)]="user.email" required/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="document">Costo del producto $</label>
-                <input type="number" placeholder="0 $" class="form-control"  name="buy_cost" [(ngModel)]="product.buy_cost" required/>
+                <label class="form-label" for="address">Dirección</label>
+                <input type="text" placeholder="Street Doe #00 00" class="form-control"  name="address" [(ngModel)]="user.address" required/>
             </div>
         </form>
         </div>

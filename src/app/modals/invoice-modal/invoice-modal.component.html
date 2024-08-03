@@ -1,0 +1,121 @@
+<div class="modal" tabindex="-1" role="dialog" style="display: block;background-color: rgba(0,0,0,0.7);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-between">
+          <h5 class="modal-title">{{!invoice.factura_id?'Crear factura':'Número de factura: '+invoice.factura_id}}</h5>
+          <button type="button" class="close" data-dismiss="modal" style="border: none;background-color: transparent;" (click)="close()">
+            <svg style="height: 20px;width:25px;fill:#000000">
+              <use href="/assets/close.svg#close"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row mt-1 mb-1">
+                <div class="col">
+                    <span class="text-primary">Fecha de creación: </span><span>{{invoice.created_at}}</span>
+                </div>
+          </div>
+          <form class="login__form mb-2" #form="ngForm">
+            @if (!invoice.factura_id) {
+                <select class="form-select" aria-label="Default select example" (change)="updateCustomerInfo($event)">
+                    <option selected>Seleccione un cliente</option>
+                    @for (customer of customers; track $index) {
+                        <option [value]="customer.customer_id">{{customer.full_name}}</option>
+                    }
+                </select>
+            }
+            @if (invoice.customer_id) {
+                <div class="mb-3">
+                    <label class="form-label" for="full_name">Nombre</label>
+                    <input type="text" placeholder="Nombre" class="form-control" name="full_name" required [disabled]="true"
+                    [(ngModel)]="invoice.customer_id.full_name"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="phone">Telefono</label>
+                    <input type="text" placeholder="Telefono" class="form-control" name="phone" [(ngModel)]="invoice.customer_id.phone" required [disabled]="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" placeholder="doe@doe.com" class="form-control"  name="email" [(ngModel)]="invoice.customer_id.email" required [disabled]="true"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="address">Dirección</label>
+                    <input type="text" placeholder="Street Doe #00 00" class="form-control"  name="address" [(ngModel)]="invoice.customer_id.address" required [disabled]="true"/>
+                </div>
+            }
+        </form>
+        <table class="table table-hover p-0">
+            @if (buys && buys.length) {
+                <thead>
+                    <tr class="table-dark">
+                        <td>Nombre</td>
+                        <td>Cantidad</td>
+                        <td>Total</td>
+                        <td>Opciones</td>
+                    </tr>
+                </thead>
+            }
+            <tbody>
+                @for (buy of buys; track $index) {
+                    <tr class="table-primary">
+                        <td>{{buy.product_id.product_name}}</td>
+                        <td>{{buy.quantity}}</td>
+                        <td>{{buy.total}}</td>
+                        <td>
+                            <button  (click)="cancelBuy($index)" class="btn btn-danger" style="margin-right: 5px;padding: 5px;">
+                                <img style="height:20px;width:20px" src="/assets/trash.svg#trash"/>
+                            </button>
+                            <button  (click)="EditBuy(buy)" class="btn btn-primary" style="padding: 5px;">
+                                <img src="/assets/pencil.svg#pencil" style="height:20px;width:20px"/>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <form #formProduct="ngForm" (ngSubmit)="addProduct(formProduct)">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label class="form-label" for="email">Seleccione un producto</label>
+                    <select class="form-select" aria-label="Default select example" name="product_id" [(ngModel)]="buyModel.id" required>
+                        @for (product of products; track $index) {
+                            <option [value]="product.product_id">{{product.product_name}}</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-2">
+                    <label class="form-label" for="email">Cant.</label>
+                    <input type="number" placeholder="0.0 $" class="form-control"  name="quantity"  [(ngModel)]="buyModel.quantity" required (input)="setPrice($event)"/>
+                </div>
+                <div class="col-4">
+                    <label class="form-label" for="email">Precio</label>
+                    <input type="number" placeholder="0.0 $" class="form-control"  name="price" [(ngModel)]="buyModel.total" required [disabled]="true"/>
+                </div>
+            </div>
+            <div class="row">
+                @if (buyModel.buy_id) {
+                    <button class="btn btn-danger mb-1" (click)="ResetBuyModel()">Cancel</button>
+                }
+                <button type="submit" class="btn btn-primary">Agregar producto</button>
+            </div>
+        </form>
+        @if (errorProduct) {
+            <div class="row mb-1">
+                No hay una cantidad suficiente del producto en inventario
+            </div>
+        }
+        <div class="row mt-1 mb-1">
+            <div class="col">
+                <span class="text-primary">Total: </span><span>{{invoice.total && invoice.total>0?invoice.total:0}}</span>
+            </div>
+        </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" [class]="!invoice.total || invoice.total==0?'btn btn-disabled':'btn btn-primary'" [disabled]="!invoice.total || invoice.total==0 || loading" (click)="save()">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
