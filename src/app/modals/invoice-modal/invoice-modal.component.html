@@ -96,12 +96,14 @@
                 @if (buyModel.buy_id) {
                     <button class="btn btn-danger mb-1" (click)="ResetBuyModel()">Cancel</button>
                 }
-                <button type="submit" class="btn btn-primary">Agregar producto</button>
+                <button type="submit" class="btn btn-primary" [disabled]="errorProduct">Agregar producto</button>
             </div>
         </form>
         @if (errorProduct) {
-            <div class="row mb-3 text-danger">
-                No hay una cantidad suficiente del producto en inventario
+            <div class="row text-danger">
+                <div class="col mt-2 mb-2">
+                    No hay una cantidad suficiente del producto en inventario
+                </div>
             </div>
         }
         <div class="row mt-1 mb-1">

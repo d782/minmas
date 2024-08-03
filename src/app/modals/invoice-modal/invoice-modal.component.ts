@@ -131,6 +131,7 @@ export class InvoiceModalComponent implements OnInit{
   }
 
   setPrice($event:any){
+    if(!$event.target.value){ return }
     const qty=$event.target.value;
     const id=parseInt(this.buyModel.id as unknown as string);
     const productIndex=this.products.findIndex(product=>(product.product_id==id));
