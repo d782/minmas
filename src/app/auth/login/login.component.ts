@@ -28,21 +28,26 @@ export class LoginComponent {
 
 
   Login(form:NgForm){
-    this.authSvc.GetUser({
+    this.authSvc.Login({
       where:{
         pwd:this.login.pwd,
         email:this.login.email
       }
     }).subscribe(resp=>{
-      if(resp && resp.length){
+      if(resp && resp.token){
         this.errorSession=false;
-        this.authSvc.user$.next(resp[0]);
-        this.authSvc.SetSession(resp[0]);
+        this.authSvc.user$.next(resp.token);
+        this.authSvc.SetSession(resp.token);
         this.router.navigate(["home"])
       }else{
         this.errorSession=true;
         form.reset();
       }
-    })
+    },
+    (error)=>{
+      this.errorSession=true;
+      console.error(error);
+    }
+    )
   }
 }

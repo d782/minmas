@@ -7,14 +7,13 @@ import { Users } from '../interfaces/users';
   providedIn: 'root'
 })
 export class AuthService {
-  public user$:Subject<Users>=new Subject();
+  public user$:Subject<string>=new Subject();
   constructor(
     private apiSvc:MinmasService
   ) { }
 
 
   SaveUser(user:Users){
-    this.SetSession(user);
     return this.apiSvc.post('users/create',user)
   }
 
@@ -22,8 +21,12 @@ export class AuthService {
     return this.apiSvc.post('users/getByFilter',query)
   }
 
-  SetSession(user:Users){
-    localStorage.setItem('minmas',JSON.stringify(user));
+  Login(query:any):Observable<{token:string}>{
+    return this.apiSvc.post('users/login',query)
+  }
+
+  SetSession(token:string){
+    localStorage.setItem('minmas',token);
   }
 
   ClearSession(){
@@ -35,10 +38,10 @@ export class AuthService {
     return auth
   }
 
-  LocalUser():Users|null{
+  LocalUser():string|null{
     const auth=localStorage.getItem('minmas');
     if(auth){
-      return JSON.parse(auth)
+      return auth
     }
     return null
   }

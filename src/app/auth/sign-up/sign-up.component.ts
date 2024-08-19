@@ -36,7 +36,8 @@ export class SignUpComponent {
     
     this.authSvc.GetUser({
       where:{
-        email:this.newUser.email
+        email:this.newUser.email,
+        document:this.newUser.document
       }
     }).pipe(switchMap(_resp=>{
       if(_resp.length){
@@ -46,8 +47,7 @@ export class SignUpComponent {
     })).subscribe((resp)=>{
       if(resp){
         this.errors=false;
-        this.authSvc.user$.next(resp)
-        this.router.navigate(['home'])
+        this.router.navigate([''])
       }else{
         this.errors=true;
       }
