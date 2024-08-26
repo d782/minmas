@@ -3,6 +3,7 @@ import { ModalsService } from '../../services/modals.service';
 import { AuthService } from '../../services/auth.service';
 import { Users } from '../../interfaces/users';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-modal-users',
@@ -18,7 +19,8 @@ export class UsersModalComponent implements OnInit,AfterViewInit {
   user=new Users();
   constructor(
     private modalSvc:ModalsService,
-    private authSvc:AuthService
+    private authSvc:AuthService,
+    private toastSvc:ToastrService
   ){
 
   }
@@ -41,6 +43,7 @@ export class UsersModalComponent implements OnInit,AfterViewInit {
   save(){
     this.user.enabled=1;
     this.authSvc.SaveUser(this.user).subscribe(_resp=>{
+      this.toastSvc.success("El usuario se ha creado correctamente","Minmas dice:");
       this.close();
     },
     (err)=>{console.error(err)})

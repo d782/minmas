@@ -1,30 +1,26 @@
 <div class="login__container">
-    <div class="login__panel">
-        <h1 class="login__header">Configuración de cuenta</h1>
-        <div class="login__form">
+    <div class="login__panel" style="width: 50% !important;">
+        <h1 class="login__header">Contactenos</h1>
+        <form class="login__form" #form="ngForm" (submit)="submit(form)" f>
             <div class="mb-3">
                 <label class="form-label" for="name">Nombre</label>
-                <input type="text" placeholder="Nombre" class="form-control" value="Diego"/>
+                <input type="text" placeholder="Nombre" class="form-control" name="name" [(ngModel)]="contact.name" required/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="lastname">Apellidos</label>
-                <input type="text" placeholder="Apellido" class="form-control" value="Cano"/>
+                <label class="form-label" for="email">Email</label>
+                <input type="email" placeholder="doe@doe.com" class="form-control" name="email" [(ngModel)]="contact.email" required/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="password">Contraseña Actual</label>
-                <input type="password" placeholder="Contraseña" class="form-control" value="*************" disabled="true"/>
+                <label class="form-label" for="phone">Telefono</label>
+                <input type="text" placeholder="234-56-78" class="form-control" name="phone" [(ngModel)]="contact.phone" required/>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="password">Nueva Contraseña</label>
-                <input type="password" placeholder="Contraseña" class="form-control" />
+                <label class="form-label" for="desc">Descripción</label>
+                <input type="text" placeholder="...Descripcion" class="form-control" name="desc" [(ngModel)]="contact.description_info" required/>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="password">Repita la nueva Contraseña</label>
-                <input type="password" placeholder="Contraseña" class="form-control" />
-            </div>
-            <button class="mb-3 btn btn-secondary" type="button">
-                Aplicar Cambios
+            <button class="mb-3 btn btn-secondary" type="submit" [disabled]="!form.valid">
+                Enviar
             </button>
-        </div>
+        </form>
     </div>
 </div>

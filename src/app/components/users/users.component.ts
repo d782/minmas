@@ -5,6 +5,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { UsersModalComponent as UserModal} from '../../modals/users/users.component';
 import { ModalsService } from '../../services/modals.service';
 import { switchMap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-users',
@@ -31,7 +32,8 @@ export class UsersComponent implements OnInit{
     constructor(
       private authSvc:AuthService,
       private modalSvc:ModalsService,
-      private viewContainer:ViewContainerRef
+      private viewContainer:ViewContainerRef,
+      private toastSvc:ToastrService
       ){
     
     }
@@ -58,6 +60,7 @@ export class UsersComponent implements OnInit{
     deleteUser(id:number|null){
       if(typeof id!=="number"){ return }
       this.authSvc.RemoveUser({user_id:id}).pipe(switchMap(_result=>{
+        this.toastSvc.warning("Minmas dice :","Se ha eliminado el usuario del sistema")
         return this.authSvc.GetUser({...this.querySelect})
       })).subscribe(_users=>{
         this.users=_users;

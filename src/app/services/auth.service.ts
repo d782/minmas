@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MinmasService } from './minmas.service';
 import { Users } from '../interfaces/users';
+import { Contact } from '../interfaces/contact';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,10 @@ export class AuthService {
   }
 
   RemoveUser(query:any){
-    return this.apiSvc.delete('',query)
+    return this.apiSvc.delete('users',query)
+  }
+
+  Contact(contact:Contact){
+    return this.apiSvc.post('users/contact',contact)
   }
 }

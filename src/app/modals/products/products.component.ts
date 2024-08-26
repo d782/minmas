@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { IProducts } from '../../interfaces/products';
 import { ModalsService } from '../../services/modals.service';
 import { ProductsService } from '../../services/products.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +19,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private modalSvc:ModalsService,
-    private productsSvc:ProductsService
+    private productsSvc:ProductsService,
+    private toastSvc:ToastrService
     ){
     
   }
@@ -34,6 +36,7 @@ export class ProductsComponent implements OnInit {
     this.product.created_at=new Date();
     this.productsSvc.CreateProduct(this.product).subscribe(_resp=>{
       if(_resp){
+        this.toastSvc.success("Se ha creado el producto correctamente","Minmas dice :")
         this.close();
       }
     },
